@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
+import 'constants.dart';
 
 class IconContent extends StatelessWidget {
   IconContent(this.genderIcon, this.genderText);
 
   final IconData genderIcon;
   final String genderText;
-
-  static const labelTextStyle = TextStyle(
-    fontSize: 18.0,
-    color: Color(0xFF8D8E98),
-  );
 
   @override
   Widget build(BuildContext context) {
