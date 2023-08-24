@@ -1,11 +1,12 @@
 import 'package:bitcoin_ticker/services/Price.dart';
-import 'package:bitcoin_ticker/services/networking.dart';
 import 'package:flutter/material.dart';
 import 'coin_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class PriceScreen extends StatefulWidget {
+  const PriceScreen({super.key});
+
   @override
   _PriceScreenState createState() => _PriceScreenState();
 }
@@ -56,20 +57,18 @@ class _PriceScreenState extends State<PriceScreen> {
     print(selectedIndex);
     selectedCurrency = currenciesList[selectedIndex];
 
-    var price_rate = await price.getPrice(selectedCurrency);
+    var priceRate = await price.getPrice(selectedCurrency);
 
-    print('CALLLED ON INIT price_rate $price_rate');
+    print('CALLLED ON INIT price_rate $priceRate');
 
-    if (price_rate != null) {
-      setState(() {
-        selectedCurrencyShow = selectedCurrency;
+    setState(() {
+      selectedCurrencyShow = selectedCurrency;
 
-        rateBTC = f.format(price_rate[0]);
-        rateETH = f.format(price_rate[1]);
-        rateLTC = f.format(price_rate[2]);
-      });
-    }
-    _stopwatch.stop();
+      rateBTC = f.format(priceRate[0]);
+      rateETH = f.format(priceRate[1]);
+      rateLTC = f.format(priceRate[2]);
+    });
+      _stopwatch.stop();
     setState(() {
       isLoading = false; // Start showing the loading indicator
       _result = 'fetch: ${_stopwatch.elapsed.inSeconds} seconds';
@@ -84,8 +83,8 @@ class _PriceScreenState extends State<PriceScreen> {
       String currency = i;
 
       var newItem = DropdownMenuItem(
-        child: Text(currency),
         value: currency,
+        child: Text(currency),
       );
 
       dropdownItems.add(newItem);
@@ -97,7 +96,7 @@ class _PriceScreenState extends State<PriceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('🤑 Coin Ticker'),
+        title: const Text('🤑 Coin Ticker'),
         backgroundColor: Colors.blueAccent,
       ),
       body: Stack(
@@ -107,7 +106,7 @@ class _PriceScreenState extends State<PriceScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+                padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
                 child: Column(
                   children: [
                     Card(
@@ -117,12 +116,12 @@ class _PriceScreenState extends State<PriceScreen> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 28.0),
                         child: Text(
                           '1 BTC = $rateBTC $selectedCurrencyShow',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.white,
                           ),
@@ -136,12 +135,12 @@ class _PriceScreenState extends State<PriceScreen> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 28.0),
                         child: Text(
                           '1 ETH = $rateETH $selectedCurrencyShow',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.white,
                           ),
@@ -155,12 +154,12 @@ class _PriceScreenState extends State<PriceScreen> {
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 15.0, horizontal: 28.0),
                         child: Text(
                           '1 LTC = $rateLTC $selectedCurrencyShow',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20.0,
                             color: Colors.white,
                           ),
@@ -178,7 +177,7 @@ class _PriceScreenState extends State<PriceScreen> {
                     
                     child: Text(
                       _result,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 15.0,
                         color: Colors.pink,
                       ),
@@ -187,7 +186,7 @@ class _PriceScreenState extends State<PriceScreen> {
                   Container(
                     height: 220.0,
                     alignment: Alignment.center,
-                    padding: EdgeInsets.only(bottom: 10.0),
+                    padding: const EdgeInsets.only(bottom: 10.0),
                     color: Colors.lightBlue,
                     child: CupertinoPicker(
                       backgroundColor: Colors.lightBlueAccent,
@@ -202,13 +201,13 @@ class _PriceScreenState extends State<PriceScreen> {
               ),
             ],
           ),
-          if (isLoading) // Loading overlay
-            Container(
-                color: Colors.black
-                    .withOpacity(0.5), // Semi-transparent black background
-                child: Center(
-                  child: CircularProgressIndicator(),
-                )),
+          // if (isLoading) // Loading overlay
+          //   Container(
+          //       color: Colors.black
+          //           .withOpacity(0.5), // Semi-transparent black background
+          //       child: const Center(
+          //         child: CircularProgressIndicator(),
+          //       )),
         ],
       ),
     );
