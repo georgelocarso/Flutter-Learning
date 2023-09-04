@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoey/screens/task_screen.dart';
+import 'package:provider/provider.dart';
+
 void main() {
   runApp(const MyApp());
 }
